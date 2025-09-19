@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filippo Stanghellini - CV</title>
+    <title>Filippo Stanghellini - Terminal CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Fira Code', monospace;
         }
         
         .copy-button {
             cursor: pointer;
             margin-left: 8px;
-            color: #3498db;
-            transition: color 0.3s;
+            color: #00ff00;
+            transition: all 0.3s;
         }
         
         .copy-button:hover {
-            color: #2980b9;
+            color: #00ff00;
+            text-shadow: 0 0 8px #00ff00;
         }
         
         .tooltip {
@@ -32,10 +35,11 @@
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 80px;
-            background-color: #2c3e50;
-            color: white;
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
             text-align: center;
             border-radius: 6px;
+            border: 1px solid #00ff00;
             padding: 5px;
             position: absolute;
             z-index: 1;
@@ -53,90 +57,144 @@
         }
 
         body {
+            background-color: #000;
+            color: #00ff00;
             line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        #terminal {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin: 20px 0;
+        .terminal-header {
+            border-bottom: 1px solid #00ff00;
             padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
+            margin-bottom: 20px;
         }
 
-        h3 {
-            color: #34495e;
-            margin: 15px 0;
-            font-size: 1.4em;
+        .prompt {
+            color: #00ff00;
+            margin-bottom: 10px;
         }
 
-        h4 {
-            color: #7f8c8d;
+        .prompt::before {
+            content: "visitor@filippo-cv:~$ ";
+            color: #00ff00;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00ff00;
+            animation: blink 1s infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .output {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #004400;
+            background-color: rgba(0, 20, 0, 0.3);
+            display: none;
+        }
+
+        .command {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .command:hover {
+            text-decoration: underline;
+        }
+
+        .typing {
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+
+        .help-text {
+            color: #008800;
             margin: 10px 0;
         }
 
-        section {
-            background-color: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dashed #00ff00;
+            padding: 0 2px;
+            cursor: pointer;
+            position: relative;
         }
 
-        section:hover {
-            transform: translateY(-5px);
+        a:hover {
+            background-color: rgba(0, 255, 0, 0.1);
+            border-bottom: 1px solid #00ff00;
+        }
+
+        a::before {
+            content: "[";
+            color: #00ff00;
+            margin-right: 2px;
+        }
+
+        a::after {
+            content: "]";
+            color: #00ff00;
+            margin-left: 2px;
+        }
+
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            color: #00ff00;
+            margin-bottom: 20px;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        .section-content {
+            padding-left: 20px;
         }
 
         ul {
             list-style-type: none;
-            padding-left: 20px;
         }
 
-        li {
-            margin-bottom: 12px;
-            position: relative;
-            padding-left: 20px;
+        li::before {
+            content: ">";
+            color: #00ff00;
+            margin-right: 10px;
         }
 
-        li:before {
-            content: "▹";
-            color: #3498db;
-            position: absolute;
-            left: 0;
+        .history {
+            margin-bottom: 20px;
+            opacity: 0.7;
         }
 
-        a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
+        #command-input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            font-size: inherit;
+            width: 50%;
+            outline: none;
         }
 
-        a:hover {
-            color: #2980b9;
-            text-decoration: underline;
+        .error-message {
+            color: #ff0000;
+            margin: 10px 0;
         }
 
         .education-item, .experience-item, .publication-item {
@@ -238,112 +296,236 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Filippo Stanghellini</h1>
-        <h2>DATA SCIENTIST</h2>
-    </header>
-
-    <section id="contact">
-        <h3>CONTACT</h3>
-        <ul>
-            <li>
-                <span>stanghelliniifilippo@gmail.com</span>
-                <span class="tooltip">
-                    <i class="fas fa-copy copy-button" onclick="copyEmail(this)"></i>
-                    <span class="tooltiptext">Copy</span>
+    <div id="terminal">
+        <div class="terminal-header">
+            <pre class="ascii-art">
+  ___ _ _ _                  ___ _                  _        _ _ _      _  
+ | __(_) (_)_ __ _ __  ___  / __| |_ __ _ _ _  __ _| |_  ___| | (_)_ _ (_) 
+ | _|| | | | '_ \ '_ \/ _ \ \__ \  _/ _` | ' \/ _` | ' \/ -_) | | | ' \| | 
+ |_| |_|_|_| .__/ .__/\___/ |___/\__\__,_|_||_\__, |_||_\___|_|_|_|_||_|_|
+           |_|  |_|                           |___/                          
+==================== Welcome to Filippo's Terminal CV ====================
+Press ENTER to view my CV
+            </pre>
+        </div>
+        <div id="terminal-content">
+            <div class="prompt">
+                <span id="command-line">
+                    <input type="text" id="command-input" autofocus spellcheck="false">
                 </span>
-            </li>
-            <li>GitHub: <a href="https://github.com/filippostanghellini">stanghee</a> | LinkedIn: <a href="https://www.linkedin.com/in/filippo-stanghellini-117643279">Filippo Stanghellini</a></li>
-        </ul>
-    </section>
-
-    <section id="education">
-        <h2>EDUCATION</h2>
-        <div class="education-item">
-            <p>2024 - CURRENT | UNIVERSITY OF TRENTO</p>
-            <p>Master's Degree in Data Science</p>
-            <ul class="courses-list">
-                <li>Statistical Methods</li>
-                <li>Statistics for Data Science</li>
-                <li>Scientific Programming</li>
-                <li>Big Data Technologies</li>
-                <li>Data Mining</li>
-                <li>Introduction to Machine Learning</li>
-                <li>Machine Learning</li>
-                <li>Machine Learning for NLP</li>
-                <li>Computational Social Science</li>
-                <li>Cognitive Data Science</li>
-            </ul>
+                <span class="cursor"></span>
+            </div>
         </div>
-        <div class="education-item">
-            <p>2020 - 2023 | UNIVERSITY OF TRENTO</p>
-            <p>Bachelor's Degree in Cognitive Psychology</p>
-        </div>
-    </section>
+    </div>
 
-    <section id="experience">
-        <h2>EXPERIENCE</h2>
-        <div class="experience-item">
-            <h3>2023 | UNIVERSITY RESEARCH ASSISTANT</h3>
-            <h4>DATA SCIENTIST</h4>
-            <ul>
-                <li>Data cleaning and data analysis</li>
-                <li>Network analysis</li>
-                <li>Psychometric and Semantic network</li>
-                <li>Python</li>
-                <li>R</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="publications">
-        <h2>PUBLICATIONS</h2>
-        <div class="publication-item">
-            <h3>2023</h3>
-            <p>Stanghellini, F., Perinelli, E., Lombardi, L., & Stella, M. (2023, September 26).</p>
-            <h4><a href="https://advances.in/psychology/10.56296/aip00008/">Introducing semantic loadings: Bridging cognitive network science with network psychometrics for understanding depression, anxiety and stress.</a></h4>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h3>SKILLS</h3>
-        <ul>
-            <li>Python</li>
-            <li>R</li>
-            <li>ML / DeepLearning</li>
-            <li>Statistics</li>
-        </ul>
-    </section>
-
-    <section id="languages">
-        <h3>LANGUAGE</h3>
-        <div class="language-item">
-            <p>Italian - Native language</p>
-            <p>English - B2</p>
-        </div>
-    </section>
-
-    <section id="certifications">
-        <h2>CERTIFICATIONS</h2>
-        <h3>DATA SCIENCE ORIENTATION</h3>
-        <p><a href="https://www.credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664/linked_in_profile">View certification</a></p>
-    </section>
     <script>
-        function copyEmail(element) {
-            const email = element.parentElement.previousElementSibling.textContent;
-            navigator.clipboard.writeText(email).then(function() {
-                const tooltip = element.nextElementSibling;
+        const terminal = document.getElementById('terminal-content');
+        const commandInput = document.getElementById('command-input');
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        const sections = {
+            about: `
+Name: Filippo Stanghellini
+Location: Verona, Italy
+Status: Learning things @ UniTrento
+            `,
+            contact: `
+Email: stanghelliniifilippo@gmail.com <span class="tooltip"><i class="fas fa-copy copy-button" onclick="copyToClipboard('stanghelliniifilippo@gmail.com')"></i><span class="tooltiptext">Copy</span></span>
+GitHub: <a href="https://github.com/filippostanghellini" target="_blank">github.com/filippostanghellini</a>
+LinkedIn: <a href="https://www.linkedin.com/in/filippo-stanghellini-117643279" target="_blank">linkedin.com/in/filippo-stanghellini</a>
+            `,
+            education: `
+[2024 - CURRENT] Master's Degree in Data Science
+University of Trento
+Courses:
+> Statistical Methods
+> Statistics for Data Science
+> Scientific Programming
+> Big Data Technologies
+> Data Mining
+> Introduction to Machine Learning
+> Machine Learning
+> Machine Learning for NLP
+> Computational Social Science
+> Cognitive Data Science
+
+[2020 - 2023] Bachelor's Degree in Cognitive Psychology
+University of Trento
+            `,
+            experience: `
+[2023] UNIVERSITY RESEARCH ASSISTANT - DATA SCIENTIST
+> Data cleaning and data analysis
+> Network analysis
+> Psychometric and Semantic network
+> Python
+> R
+            `,
+            publications: `
+[2023] Stanghellini, F., Perinelli, E., Lombardi, L., & Stella, M.
+"Introducing semantic loadings: Bridging cognitive network science with network psychometrics for understanding depression, anxiety and stress."
+Link: <a href="https://advances.in/psychology/10.56296/aip00008/" target="_blank">advances.in/psychology/10.56296/aip00008/</a>
+            `,
+            skills: `
+Programming:
+> Python
+> R
+
+Areas of Expertise:
+> Machine Learning
+> Deep Learning
+> Statistics
+            `,
+            languages: `
+> Italian - Native language
+> English - B2
+            `,
+            certifications: `
+[DATA SCIENCE ORIENTATION]
+View certification: <a href="https://www.credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664/linked_in_profile" target="_blank">credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664</a>
+            `
+        };
+
+        // Removed commands object as we no longer need it
+
+        function createOutputElement(content, isError = false) {
+            const output = document.createElement('div');
+            output.className = 'output';
+            output.style.display = 'block';
+            
+            if (isError) {
+                output.classList.add('error-message');
+            }
+            
+            // Create typing effect
+            const text = document.createElement('div');
+            text.className = 'typing';
+            output.appendChild(text);
+            
+            // Create a temporary container to parse HTML
+            const temp = document.createElement('div');
+            temp.innerHTML = content;
+            
+            // Type out the content preserving HTML
+            typeTextWithHTML(text, temp);
+            return output;
+        }
+
+        function typeTextWithHTML(element, sourceElement, nodeIndex = 0, textIndex = 0) {
+            const nodes = Array.from(sourceElement.childNodes);
+            
+            if (nodeIndex >= nodes.length) return;
+            
+            const currentNode = nodes[nodeIndex];
+            
+            if (currentNode.nodeType === Node.TEXT_NODE) {
+                if (textIndex >= currentNode.textContent.length) {
+                    // Move to next node
+                    typeTextWithHTML(element, sourceElement, nodeIndex + 1, 0);
+                    return;
+                }
+                
+                element.innerHTML += currentNode.textContent[textIndex];
+                setTimeout(() => typeTextWithHTML(element, sourceElement, nodeIndex, textIndex + 1), 10);
+            } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                // For HTML elements, add them whole
+                element.appendChild(currentNode.cloneNode(true));
+                setTimeout(() => typeTextWithHTML(element, sourceElement, nodeIndex + 1, 0), 10);
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const tooltip = document.querySelector('.tooltiptext');
                 tooltip.textContent = 'Copied!';
                 tooltip.classList.add('show');
                 
-                setTimeout(function() {
+                setTimeout(() => {
                     tooltip.classList.remove('show');
-                    setTimeout(function() {
+                    setTimeout(() => {
                         tooltip.textContent = 'Copy';
                     }, 300);
                 }, 2000);
             });
         }
+
+        function createNewPrompt() {
+            const promptDiv = document.createElement('div');
+            promptDiv.className = 'prompt';
+            promptDiv.innerHTML = `<span id="command-line">
+                <input type="text" class="command-input" spellcheck="false">
+            </span>
+            <span class="cursor"></span>`;
+            return promptDiv;
+        }
+
+        function executeCommand(command) {
+            // On any command (including empty), show the full CV
+            const content = `╭───────────────────── ABOUT ─────────────────────╮
+${sections.about}
+╰──────────────────────────────────────────────╯
+
+╭──────────────────── CONTACT ────────────────────╮
+${sections.contact}
+╰──────────────────────────────────────────────╯
+
+╭─────────────────── EDUCATION ───────────────────╮
+${sections.education}
+╰──────────────────────────────────────────────╯
+
+╭────────────────── EXPERIENCE ──────────────────╮
+${sections.experience}
+╰──────────────────────────────────────────────╯
+
+╭───────────────── PUBLICATIONS ─────────────────╮
+${sections.publications}
+╰──────────────────────────────────────────────╯
+
+╭────────────────── SKILLS ────────────────────╮
+${sections.skills}
+╰──────────────────────────────────────────────╯
+
+╭───────────────── LANGUAGES ───────────────────╮
+${sections.languages}
+╰──────────────────────────────────────────────╯
+
+╭──────────────── CERTIFICATIONS ────────────────╮
+${sections.certifications}
+╰──────────────────────────────────────────────╯`;
+
+            terminal.insertBefore(createOutputElement(content), terminal.lastElementChild);
+        }
+
+        commandInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value;
+                this.value = '';
+                executeCommand(command);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
+        });
+
+        // Keep focus on input
+        document.addEventListener('click', function() {
+            commandInput.focus();
+        });
+
+        // Initial focus
+        commandInput.focus();
     </script>
 </body>
 </html>
