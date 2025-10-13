@@ -1,531 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filippo Stanghellini - Terminal CV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Fira Code', monospace;
-        }
-        
-        .copy-button {
-            cursor: pointer;
-            margin-left: 8px;
-            color: #00ff00;
-            transition: all 0.3s;
-        }
-        
-        .copy-button:hover {
-            color: #00ff00;
-            text-shadow: 0 0 8px #00ff00;
-        }
-        
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 80px;
-            background-color: rgba(0, 255, 0, 0.2);
-            color: #00ff00;
-            text-align: center;
-            border-radius: 6px;
-            border: 1px solid #00ff00;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -40px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-        }
-        
-        .tooltip .tooltiptext.show {
-            visibility: visible;
-            opacity: 1;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filippo Stanghellini — Curriculum Vitae</title>
+  <meta name="description" content="Academic and professional CV of Filippo Stanghellini. Data Science master's student at UniTrento. Research assistant experience, publication, skills, and contacts." />
 
-        body {
-            background-color: #000;
-            color: #00ff00;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  <meta property="og:title" content="Filippo Stanghellini — CV" />
+  <meta property="og:description" content="Data Science master's student at UniTrento. Research assistant experience, publication, skills, and contacts." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
 
-        #terminal {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        .terminal-header {
-            border-bottom: 1px solid #00ff00;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .prompt {
-            color: #00ff00;
-            margin-bottom: 10px;
-        }
-
-        .prompt::before {
-            content: "visitor@filippo-cv:~$ ";
-            color: #00ff00;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background-color: #00ff00;
-            animation: blink 1s infinite;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        .output {
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #004400;
-            background-color: rgba(0, 20, 0, 0.3);
-            display: none;
-        }
-
-        .command {
-            color: #00ff00;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .command:hover {
-            text-decoration: underline;
-        }
-
-        .typing {
-            white-space: pre-wrap;
-            overflow: hidden;
-        }
-
-        .help-text {
-            color: #008800;
-            margin: 10px 0;
-        }
-
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            border-bottom: 1px dashed #00ff00;
-            padding: 0 2px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        a:hover {
-            background-color: rgba(0, 255, 0, 0.1);
-            border-bottom: 1px solid #00ff00;
-        }
-
-        a::before {
-            content: "[";
-            color: #00ff00;
-            margin-right: 2px;
-        }
-
-        a::after {
-            content: "]";
-            color: #00ff00;
-            margin-left: 2px;
-        }
-
-        .ascii-art {
-            font-family: monospace;
-            white-space: pre;
-            color: #00ff00;
-            margin-bottom: 20px;
-            font-size: 12px;
-            line-height: 1.2;
-        }
-
-        .section-content {
-            padding-left: 20px;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        li::before {
-            content: ">";
-            color: #00ff00;
-            margin-right: 10px;
-        }
-
-        .history {
-            margin-bottom: 20px;
-            opacity: 0.7;
-        }
-
-        #command-input {
-            background: transparent;
-            border: none;
-            color: #00ff00;
-            font-family: 'Fira Code', monospace;
-            font-size: inherit;
-            width: 50%;
-            outline: none;
-        }
-
-        .error-message {
-            color: #ff0000;
-            margin: 10px 0;
-        }
-
-        .education-item, .experience-item, .publication-item {
-            margin-bottom: 25px;
-            padding-left: 20px;
-            border-left: 4px solid #3498db;
-            transition: border-left-color 0.3s;
-        }
-
-        .education-item:hover, .experience-item:hover, .publication-item:hover {
-            border-left-color: #2c3e50;
-        }
-
-        .courses-list {
-            margin-top: 10px;
-            padding-left: 20px;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .courses-list li {
-            margin-bottom: 6px;
-            padding-left: 15px;
-            position: relative;
-        }
-
-        .courses-list li:before {
-            content: "•";
-            color: #3498db;
-            position: absolute;
-            left: 0;
-            font-size: 1.2em;
-        }
-
-        .language-item {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        #skills ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        #skills li {
-            background-color: #f8f9fa;
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid #e9ecef;
-            margin: 5px;
-        }
-
-        #skills li:before {
-            content: none;
-        }
-
-        #contact ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        #contact li {
-            padding: 10px 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        #contact li:before {
-            content: none;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            header {
-                padding: 20px 0;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            section {
-                padding: 15px;
-            }
-
-            #contact ul {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+  <style>
+    :root{
+      --bg: #ffffff; --fg: #0f172a; --muted: #475569; --primary: #0ea5e9; --primary-ink:#0c4a6e; --border:#e2e8f0; --chip:#f1f5f9; --code:#0b1020;
+    }
+    @media (prefers-color-scheme: dark){:root{--bg:#0b1020;--fg:#e5e7eb;--muted:#94a3b8;--primary:#38bdf8;--primary-ink:#bae6fd;--border:#1f2937;--chip:#111827;--code:#0b1020;}}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:960px;margin:0 auto;padding:24px}
+    header{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:24px 0 8px;border-bottom:1px solid var(--border)}
+    .title{display:flex;flex-direction:column;gap:6px}
+    h1{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.1}
+    .subtitle{color:var(--muted)}
+    .meta{color:var(--muted);font-size:0.95rem}
+    nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:var(--chip);font-size:0.95rem;color:var(--fg)}
+    main{display:grid;gap:28px;padding:24px 0}
+    section{border:1px solid var(--border);border-radius:14px;padding:20px}
+    section header{display:flex;align-items:center;justify-content:space-between;border:0;padding:0 0 8px}
+    section h2{margin:0;font-size:1.25rem}
+    .grid{display:grid;gap:16px}
+    .two-col{grid-template-columns:1.1fr 1fr}
+    @media (max-width:840px){.two-col{grid-template-columns:1fr}}
+    .item{display:grid;gap:6px;padding-left:14px;border-left:3px solid var(--border)}
+    .item h3{margin:0;font-size:1.05rem}
+    .item .when{color:var(--muted);font-size:0.92rem}
+    .item .org{font-weight:600}
+    .item ul{margin:8px 0 0 18px}
+    .item li{margin:4px 0}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:0.92rem}
+    footer{padding:20px 0 48px;color:var(--muted);font-size:0.92rem}
+    @media print{nav,.actions,footer{display:none}section{break-inside:avoid}body{background:#fff;color:#000}}
+  </style>
 </head>
 <body>
-    <div id="terminal">
-        <div class="terminal-header">
-            <pre class="ascii-art">
-  ___ _ _ _                  ___ _                  _        _ _ _      _  
- | __(_) (_)_ __ _ __  ___  / __| |_ __ _ _ _  __ _| |_  ___| | (_)_ _ (_) 
- | _|| | | | '_ \ '_ \/ _ \ \__ \  _/ _` | ' \/ _` | ' \/ -_) | | | ' \| | 
- |_| |_|_|_| .__/ .__/\___/ |___/\__\__,_|_||_\__, |_||_\___|_|_|_|_||_|_|
-           |_|  |_|                           |___/                          
-==================== Welcome to Filippo's Terminal CV ====================
-Press ENTER to view my CV
-            </pre>
+  <div class="container">
+    <header>
+      <div class="title">
+        <h1>Filippo Stanghellini</h1>
+        <div class="subtitle">Master's student in Data Science · University of Trento</div>
+        <div class="meta">Verona, Italy · Status: Learning things @ UniTrento</div>
+      </div>
+      <nav>
+        <a class="pill" href="#contact"><i class="fa-regular fa-envelope"></i> Contact</a>
+        <a class="pill" href="#education"><i class="fa-solid fa-graduation-cap"></i> Education</a>
+        <a class="pill" href="#experience"><i class="fa-regular fa-clock"></i> Experience</a>
+        <a class="pill" href="#projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <a class="pill" href="#publications"><i class="fa-regular fa-file-lines"></i> Publications</a>
+        <a class="pill" href="#skills"><i class="fa-solid fa-screwdriver-wrench"></i> Skills</a>
+        <a class="pill" href="#languages"><i class="fa-solid fa-language"></i> Languages</a>
+        <a class="pill" href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="contact">
+        <header><h2>Contact</h2></header>
+        <div class="chips">
+          <span class="chip" id="emailChip">stanghelliniifilippo@gmail.com</span>
+          <button id="copyEmailBtn" class="pill" type="button" aria-label="Copy email" style="cursor:pointer">
+            <i class="fa-regular fa-copy" aria-hidden="true"></i>
+          </button>
+          <a class="chip" href="https://github.com/filippostanghellini" target="_blank" rel="noopener">github.com/filippostanghellini</a>
+          <a class="chip" href="https://www.linkedin.com/in/filippo-stanghellini-117643279" target="_blank" rel="noopener">linkedin.com/in/filippo-stanghellini</a>
         </div>
-        <div id="terminal-content">
-            <div class="prompt">
-                <span id="command-line">
-                    <input type="text" id="command-input" autofocus spellcheck="false">
-                </span>
-                <span class="cursor"></span>
+      </section>
+
+      <section id="education">
+        <header><h2>Education</h2></header>
+        <div class="grid">
+          <article class="item">
+            <div class="when">2024 – Current</div>
+            <h3>Master's Degree in Data Science</h3>
+            <div class="org">University of Trento</div>
+          </article>
+          <article class="item">
+            <div class="when">2020 – 2023</div>
+            <h3>Bachelor's Degree in Cognitive Psychology</h3>
+            <div class="org">University of Trento</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="experience">
+        <header><h2>Experience</h2></header>
+        <div class="grid">
+          <article class="item">
+            <div class="when">2023</div>
+            <h3>University Research Assistant — Data Scientist</h3>
+            <ul>
+              <li>Data cleaning and data analysis</li>
+              <li>Network analysis</li>
+              <li>Psychometric and semantic network</li>
+              <li>Python</li>
+              <li>R</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects">
+        <header><h2>Projects</h2></header>
+        <article class="item">
+          <h3><a href="https://github.com/filippostanghellini/Crop-Disease-Prediction-and-Alert-System" target="_blank" rel="noopener">Crop Disease Prediction and Alert System</a></h3>
+          <p>The Crop Disease Prediction and Alert System is a comprehensive real-time agricultural monitoring platform designed to detect, predict, and alert on potential crop disease outbreaks.</p>
+        </article>
+        <article class="item">
+          <h3><a href="https://github.com/university-project-WWW/clip-image-retrieval" target="_blank" rel="noopener">CLIP Image Retrieval</a></h3>
+          <p>A CLIP-based image retrieval system with ViT-L/14, Circle Loss, and advanced re-ranking & TTA for accurate visual search.</p>
+        </article>
+        <article class="item">
+          <h3><a href="https://github.com/filippostanghellini/micro-learning" target="_blank" rel="noopener">Micro Learning</a></h3>
+          <p>Micro Learning is a terminal-based application that generates True/False quizzes from PDF files. It extracts text from your study materials and uses AI to create interactive quizzes, helping you review and reinforce key concepts efficiently. [IT WORKS OFFLINE]</p>
+        </article>
+      </section>
+
+      <section id="publications">
+        <header><h2>Publications</h2></header>
+        <article class="item">
+          <div class="when">2023</div>
+          <h3>Stanghellini, F., Perinelli, E., Lombardi, L., &amp; Stella, M.</h3>
+          <p><em>Introducing semantic loadings: Bridging cognitive network science with network psychometrics for understanding depression, anxiety and stress.</em></p>
+          <p>Link: <a href="https://advances.in/psychology/10.56296/aip00008/" target="_blank" rel="noopener">advances.in/psychology/10.56296/aip00008/</a></p>
+        </article>
+      </section>
+
+      <section id="skills">
+        <header><h2>Skills</h2></header>
+        <div class="grid two-col">
+          <div>
+            <h3>Programming</h3>
+            <div class="chips">
+              <span class="chip">Python</span>
+              <span class="chip">R</span>
             </div>
+          </div>
+          <div>
+            <h3>Areas of Expertise</h3>
+            <div class="chips">
+              <span class="chip">Machine Learning</span>
+              <span class="chip">Deep Learning</span>
+              <span class="chip">Statistics</span>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
 
-    <script>
-        const terminal = document.getElementById('terminal-content');
-        const commandInput = document.getElementById('command-input');
-        let commandHistory = [];
-        let historyIndex = -1;
+      <section id="languages">
+        <header><h2>Languages</h2></header>
+        <div class="chips">
+          <span class="chip">Italian — Native language</span>
+          <span class="chip">English — B2</span>
+        </div>
+      </section>
 
-        const sections = {
-            about: `
-Name: Filippo Stanghellini
-Location: Verona, Italy
-Status: Learning things @ UniTrento
-            `,
-            contact: `
-Email: stanghelliniifilippo@gmail.com <span class="tooltip"><i class="fas fa-copy copy-button" onclick="copyToClipboard('stanghelliniifilippo@gmail.com')"></i><span class="tooltiptext">Copy</span></span>
-GitHub: <a href="https://github.com/filippostanghellini" target="_blank">github.com/filippostanghellini</a>
-LinkedIn: <a href="https://www.linkedin.com/in/filippo-stanghellini-117643279" target="_blank">linkedin.com/in/filippo-stanghellini</a>
-            `,
-            education: `
-[2024 - CURRENT] Master's Degree in Data Science
-University of Trento
-Courses:
-> Statistical Methods
-> Statistics for Data Science
-> Scientific Programming
-> Big Data Technologies
-> Data Mining
-> Introduction to Machine Learning
-> Machine Learning
-> Machine Learning for NLP
-> Computational Social Science
-> Cognitive Data Science
+      <section id="certifications">
+        <header><h2>Certifications</h2></header>
+        <article class="item">
+          <div class="when">Data Science Orientation</div>
+          <p>View certification: <a href="https://www.credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664/linked_in_profile" target="_blank" rel="noopener">credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664</a></p>
+        </article>
+      </section>
+    </main>
 
-[2020 - 2023] Bachelor's Degree in Cognitive Psychology
-University of Trento
-            `,
-            experience: `
-[2023] UNIVERSITY RESEARCH ASSISTANT - DATA SCIENTIST
-> Data cleaning and data analysis
-> Network analysis
-> Psychometric and Semantic network
-> Python
-> R
-            `,
-            publications: `
-[2023] Stanghellini, F., Perinelli, E., Lombardi, L., & Stella, M.
-"Introducing semantic loadings: Bridging cognitive network science with network psychometrics for understanding depression, anxiety and stress."
-Link: <a href="https://advances.in/psychology/10.56296/aip00008/" target="_blank">advances.in/psychology/10.56296/aip00008/</a>
-            `,
-            skills: `
-Programming:
-> Python
-> R
+    <footer>
+      <div>© <span id="year"></span> Filippo Stanghellini · Last updated for academic use.</div>
+    </footer>
+  </div>
 
-Areas of Expertise:
-> Machine Learning
-> Deep Learning
-> Statistics
-            `,
-            languages: `
-> Italian - Native language
-> English - B2
-            `,
-            certifications: `
-[DATA SCIENCE ORIENTATION]
-View certification: <a href="https://www.credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664/linked_in_profile" target="_blank">credly.com/badges/c88b20e9-80f5-4d3f-a477-089a92768664</a>
-            `
-        };
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
-        // Removed commands object as we no longer need it
+  <!-- Copy-to-clipboard script -->
+  <script>
+    (function () {
+      const copyBtn = document.getElementById("copyEmailBtn");
+      const emailChip = document.getElementById("emailChip");
+      if (!copyBtn || !emailChip) return;
 
-        function createOutputElement(content, isError = false) {
-            const output = document.createElement('div');
-            output.className = 'output';
-            output.style.display = 'block';
-            
-            if (isError) {
-                output.classList.add('error-message');
-            }
-            
-            // Create typing effect
-            const text = document.createElement('div');
-            text.className = 'typing';
-            output.appendChild(text);
-            
-            // Create a temporary container to parse HTML
-            const temp = document.createElement('div');
-            temp.innerHTML = content;
-            
-            // Type out the content preserving HTML
-            typeTextWithHTML(text, temp);
-            return output;
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(emailChip.textContent.trim());
+          copyBtn.setAttribute("aria-label", "Copied");
+          copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i>';
+          setTimeout(() => {
+            copyBtn.setAttribute("aria-label", "Copy email");
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i>';
+          }, 1500);
+        } catch {
+          alert("Copy failed");
         }
-
-        function typeTextWithHTML(element, sourceElement, nodeIndex = 0, textIndex = 0) {
-            const nodes = Array.from(sourceElement.childNodes);
-            
-            if (nodeIndex >= nodes.length) return;
-            
-            const currentNode = nodes[nodeIndex];
-            
-            if (currentNode.nodeType === Node.TEXT_NODE) {
-                if (textIndex >= currentNode.textContent.length) {
-                    // Move to next node
-                    typeTextWithHTML(element, sourceElement, nodeIndex + 1, 0);
-                    return;
-                }
-                
-                element.innerHTML += currentNode.textContent[textIndex];
-                setTimeout(() => typeTextWithHTML(element, sourceElement, nodeIndex, textIndex + 1), 10);
-            } else if (currentNode.nodeType === Node.ELEMENT_NODE) {
-                // For HTML elements, add them whole
-                element.appendChild(currentNode.cloneNode(true));
-                setTimeout(() => typeTextWithHTML(element, sourceElement, nodeIndex + 1, 0), 10);
-            }
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const tooltip = document.querySelector('.tooltiptext');
-                tooltip.textContent = 'Copied!';
-                tooltip.classList.add('show');
-                
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                    setTimeout(() => {
-                        tooltip.textContent = 'Copy';
-                    }, 300);
-                }, 2000);
-            });
-        }
-
-        function createNewPrompt() {
-            const promptDiv = document.createElement('div');
-            promptDiv.className = 'prompt';
-            promptDiv.innerHTML = `<span id="command-line">
-                <input type="text" class="command-input" spellcheck="false">
-            </span>
-            <span class="cursor"></span>`;
-            return promptDiv;
-        }
-
-        function executeCommand(command) {
-            // On any command (including empty), show the full CV
-            const content = `╭───────────────────── ABOUT ─────────────────────╮
-${sections.about}
-╰──────────────────────────────────────────────╯
-
-╭──────────────────── CONTACT ────────────────────╮
-${sections.contact}
-╰──────────────────────────────────────────────╯
-
-╭─────────────────── EDUCATION ───────────────────╮
-${sections.education}
-╰──────────────────────────────────────────────╯
-
-╭────────────────── EXPERIENCE ──────────────────╮
-${sections.experience}
-╰──────────────────────────────────────────────╯
-
-╭───────────────── PUBLICATIONS ─────────────────╮
-${sections.publications}
-╰──────────────────────────────────────────────╯
-
-╭────────────────── SKILLS ────────────────────╮
-${sections.skills}
-╰──────────────────────────────────────────────╯
-
-╭───────────────── LANGUAGES ───────────────────╮
-${sections.languages}
-╰──────────────────────────────────────────────╯
-
-╭──────────────── CERTIFICATIONS ────────────────╮
-${sections.certifications}
-╰──────────────────────────────────────────────╯`;
-
-            terminal.insertBefore(createOutputElement(content), terminal.lastElementChild);
-        }
-
-        commandInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const command = this.value;
-                this.value = '';
-                executeCommand(command);
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    this.value = commandHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    this.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    this.value = '';
-                }
-            }
-        });
-
-        // Keep focus on input
-        document.addEventListener('click', function() {
-            commandInput.focus();
-        });
-
-        // Initial focus
-        commandInput.focus();
-    </script>
+      });
+    })();
+  </script>
 </body>
 </html>
